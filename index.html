@@ -9,15 +9,29 @@
 </head>
 
 <body>
+  <h1>My Library</h1>
   <button class="btn showModal">New Book</button>
-  <ul></ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>Read Status</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
   <dialog>
     <form method="dialog">
       <input type="text" name="title" id="title" placeholder="Title" required>
       <input type="text" name="author" id="author" placeholder="Author" required>
       <input type="number" name="pages" id="pages" placeholder="Pages" required>
       <div class="radio">
-        <input type="radio" name="readStatus" id="not-read" value="Not Read Yet" required>
+        <input type="radio" name="readStatus" id="not-read" value="Not Read Yet" required checked>
         <label for="not-read">Not Read Yet</label>
         <input type="radio" name="readStatus" id="read-it" value="Read It" required>
         <label for="read-it">Read It</label>

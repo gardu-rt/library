@@ -1,3 +1,23 @@
+body {
+    text-align: center;
+}
+
 input[type="text"] {
     display: block;
+}
+
+table {
+    margin: auto;
+    margin-top: 8px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+ tr th{
+    width: 200px;
+    border: 1px solid black;
+}
+
+tbody tr td {
+    border: 1px solid black;
 }

@@ -1,21 +1,20 @@
 // App
 const myLibrary = [];
 
-function Books(title, author, pages, readStatus) {
+function Books(title, author, pages, read) {
   this.id = crypto.randomUUID();
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.readStatus = readStatus;
+  this.read = read;
 }
 
-Books.prototype.changeReadStatus = function () {
-  this.readStatus =
-    this.readStatus === "Not read yet" ? "Read it" : "Not read yet";
+Books.prototype.toggleRead = function () {
+  this.read = !this.read;
 };
 
-function addBookToLibrary(title, author, pages, readStatus) {
-  myLibrary.push(new Books(title, author, pages, readStatus));
+function addBookToLibrary(title, author, pages, read) {
+  myLibrary.push(new Books(title, author, pages, read));
 };
 
 function removeBook(array, id) {
@@ -34,23 +33,46 @@ const author = document.querySelector("#author");
 const pages = document.querySelector("#pages");
 const radioBtn = document.querySelectorAll("[type=radio]");
 const submitBtn = document.querySelector("#submitBtn");
-const bookList = document.querySelector("ul");
+const tbody = document.querySelector("tbody");
 
-let readStatus = "";
+let read = false;
 
 function displayList(array) {
-  bookList.innerHTML = "";
+  tbody.innerHTML = "";
   for (let i = 0; i < array.length; i++) {
     const book = array[i];
-    const list = document.createElement("li");
-    list.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.readStatus}`;
-    bookList.appendChild(list);
+    const row = tbody.insertRow();
+
+    row.insertCell(0).textContent = book.title;
+    row.insertCell(1).textContent = book.author;
+    row.insertCell(2).textContent = book.pages;
+
+    const cellRead = row.insertCell(3);
+
+    const statusBtn = document.createElement("button");
+    cellRead.appendChild(statusBtn);
+    statusBtn.textContent = book.read ? "Read It" : "Not Read Yet";
+    statusBtn.addEventListener("click", () => {
+      book.toggleRead();
+      statusBtn.textContent = book.read ? "Read It" : "Not Read Yet";
+    });
+
+    const cellBtn = row.insertCell(4);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Remove";
+    cellBtn.appendChild(deleteBtn);
+    deleteBtn.addEventListener("click", function () {
+      removeBook(array, book.id);
+      displayList(array);
+    });
+
   }
 }
 
 radioBtn.forEach(el => {
   el.addEventListener("change", function () {
-    readStatus = el.value;
+    read = el.value === "Read It";
   });
 });
 
@@ -67,7 +89,7 @@ buttons.forEach(btn => {
     }
     else if (target.type === "submit") {
       // event.preventDefault();
-      addBookToLibrary(title.value, author.value, pages.value, readStatus);
+      addBookToLibrary(title.value, author.value, pages.value, read);
       displayList(myLibrary);
     }
   });
