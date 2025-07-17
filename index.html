@@ -9,18 +9,23 @@
 </head>
 
 <body>
-  <form>
-    <input type="text" name="title" id="title" placeholder="Title">
-    <input type="text" name="author" id="author" placeholder="Author">
-    <input type="number" name="pages" id="pages" placeholder="Pages">
-    <div class="radio">
-      <input type="radio" name="not-read" id="not-read" value="Not Read Yet">
-      <label for="not-read">Not Read Yet</label>
-      <input type="radio" name="read-it" id="read-it" value="Read It">
-      <label for="read-it">Read It</label>
-    </div>
-    <input type="submit" value="Submit">
-  </form>
+  <button class="btn showModal">New Book</button>
+  <ul></ul>
+  <dialog>
+    <form method="dialog">
+      <input type="text" name="title" id="title" placeholder="Title" required>
+      <input type="text" name="author" id="author" placeholder="Author" required>
+      <input type="number" name="pages" id="pages" placeholder="Pages" required>
+      <div class="radio">
+        <input type="radio" name="readStatus" id="not-read" value="Not Read Yet" required>
+        <label for="not-read">Not Read Yet</label>
+        <input type="radio" name="readStatus" id="read-it" value="Read It" required>
+        <label for="read-it">Read It</label>
+      </div>
+      <input type="submit" value="Submit" class="btn">
+    </form>
+    <button class="btn close">close</button>
+  </dialog>
   <script src="/script/script.js"></script>
 </body>
 

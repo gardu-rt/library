@@ -26,3 +26,49 @@ function removeBook(array, id) {
 }
 
 //DOM
+const form = document.querySelector("form");
+const buttons = document.querySelectorAll(".btn");
+const modal = document.querySelector("dialog");
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const pages = document.querySelector("#pages");
+const radioBtn = document.querySelectorAll("[type=radio]");
+const submitBtn = document.querySelector("#submitBtn");
+const bookList = document.querySelector("ul");
+
+let readStatus = "";
+
+function displayList(array) {
+  bookList.innerHTML = "";
+  for (let i = 0; i < array.length; i++) {
+    const book = array[i];
+    const list = document.createElement("li");
+    list.textContent = `${book.title}, ${book.author}, ${book.pages}, ${book.readStatus}`;
+    bookList.appendChild(list);
+  }
+}
+
+radioBtn.forEach(el => {
+  el.addEventListener("change", function () {
+    readStatus = el.value;
+  });
+});
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", event => {
+    const target = event.target;
+    if (target.classList.contains("showModal")) {
+      modal.showModal();
+      form.autofocus;
+      form.reset();
+    }
+    else if (target.classList.contains("close")) {
+      modal.close();
+    }
+    else if (target.type === "submit") {
+      // event.preventDefault();
+      addBookToLibrary(title.value, author.value, pages.value, readStatus);
+      displayList(myLibrary);
+    }
+  });
+});
